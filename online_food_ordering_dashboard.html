@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Who Orders Online? Understanding Online Food-Ordering Behavior</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root { --ink:#172033; --muted:#667085; --line:#e7eaf0; --bg:#f6f8fb; --card:#ffffff; --accent:#6d28d9; --accent2:#4f46e5; --soft:#f1edff; }
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}
+.container{max-width:1180px;margin:0 auto;padding:28px 18px 42px}
+.hero{background:linear-gradient(135deg,#24113f,#5b21b6);color:#fff;border-radius:22px;padding:34px 34px 30px;box-shadow:0 12px 35px rgba(38,18,63,.16)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;opacity:.78;font-weight:700;margin-bottom:10px}
+h1{font-size:clamp(27px,4vw,46px);line-height:1.08;margin:0 0 12px;letter-spacing:-.03em}
+.question{font-size:clamp(16px,2vw,20px);max-width:800px;opacity:.9;margin:0}
+.hero-finding{margin-top:24px;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.hero-number{font-size:clamp(42px,7vw,68px);font-weight:800;line-height:.95;letter-spacing:-.05em}
+.hero-label{font-size:15px;max-width:430px;opacity:.92}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px 15px;box-shadow:0 5px 18px rgba(16,24,40,.045)}
+.card h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em}
+.takeaway{font-size:13px;color:var(--muted);min-height:38px;margin:0 0 2px}
+.chart{height:365px;width:100%}
+.note{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 18px;color:#596273;font-size:13px}
+.note strong{color:var(--ink)}
+.footer{text-align:center;color:#8a93a3;font-size:12px;margin-top:14px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.hero{padding:27px 22px}.container{padding:16px 12px 30px}.chart{height:330px}}
+@media(max-width:460px){.chart{height:300px}.card{padding:16px 12px 10px}}
+</style>
+</head>
+<body>
+<div class="container">
+<section class="hero">
+  <div class="eyebrow">Online Food-Ordering Behavior · 285 cleaned records</div>
+  <h1>Who Orders Online? Understanding Online Food-Ordering Behavior</h1>
+  <p class="question"><strong>Main question:</strong> How does online food-ordering behavior vary across income, occupation, and family size?</p>
+  <div class="hero-finding"><div class="hero-number">85.5%</div><div class="hero-label"><strong>No Income</strong> has the highest online-ordering rate in this dataset. This is an association, not evidence that income causes ordering behavior.</div></div>
+</section>
+
+<main class="grid">
+  <section class="card"><h2>1. Online-ordering rate by Monthly Income</h2><p class="takeaway">Ordering rates generally decrease across higher-income groups; <strong>No Income</strong> is highest at 85.5%.</p><div id="income" class="chart"></div></section>
+  <section class="card"><h2>2. Online-ordering rate by Family Size</h2><p class="takeaway">Ordering is highest for 4-person families (86.7%) and lowest for 6-person families (60.9%).</p><div id="family" class="chart"></div></section>
+  <section class="card"><h2>3. Online-ordering rate by Occupation</h2><p class="takeaway">Ordering rates differ across occupations; sample size matters, especially for the small Housewife group.</p><div id="occupation" class="chart"></div></section>
+  <section class="card"><h2>4. Monthly Income × Occupation</h2><p class="takeaway">The high No Income rate is strongly associated with its student-heavy composition; very small subgroups should not be over-interpreted.</p><div id="incomeOccupation" class="chart"></div></section>
+</main>
+
+<section class="note"><strong>Data & methodology:</strong> Rates are calculated as the percentage of records with <strong>Output = Yes</strong> within each displayed group. Analysis uses <strong>285 cleaned records</strong> after removing exact duplicates and the duplicate <code>Unnamed: 13</code> field, plus the specified text cleanup. Percentages in small subgroups can be unstable, so subgroup patterns are descriptive rather than causal. <strong>“No Income” is a categorical income group in the source data and should not be interpreted as zero household income.</strong> Hover over bars/points for sample sizes and exact rates.</section>
+<div class="footer">Interactive dashboard · Hover, zoom, and tap chart elements to explore</div>
+</div>
+
+<script>
+const DATA={"income": [{"Monthly Income": "No Income", "count": 131, "yes": 112, "rate": 85.49618320610686, "sum": 112}, {"Monthly Income": "Below Rs.10000", "count": 19, "yes": 15, "rate": 78.94736842105263, "sum": 15}, {"Monthly Income": "10001 to 25000", "count": 36, "yes": 27, "rate": 75.0, "sum": 27}, {"Monthly Income": "25001 to 50000", "count": 52, "yes": 33, "rate": 63.46153846153846, "sum": 33}, {"Monthly Income": "More than 50000", "count": 47, "yes": 30, "rate": 63.829787234042556, "sum": 30}], "family": [{"Family size": 1, "count": 18, "yes": 13, "rate": 72.22222222222221, "sum": 13}, {"Family size": 2, "count": 75, "yes": 55, "rate": 73.33333333333333, "sum": 55}, {"Family size": 3, "count": 87, "yes": 70, "rate": 80.45977011494253, "sum": 70}, {"Family size": 4, "count": 45, "yes": 39, "rate": 86.66666666666667, "sum": 39}, {"Family size": 5, "count": 37, "yes": 26, "rate": 70.27027027027027, "sum": 26}, {"Family size": 6, "count": 23, "yes": 14, "rate": 60.86956521739131, "sum": 14}], "occupation": [{"Occupation": "Student", "count": 144, "yes": 126, "rate": 87.5, "sum": 126}, {"Occupation": "Employee", "count": 94, "yes": 60, "rate": 63.829787234042556, "sum": 60}, {"Occupation": "Self Employed", "count": 38, "yes": 24, "rate": 63.1578947368421, "sum": 24}, {"Occupation": "Housewife", "count": 9, "yes": 7, "rate": 77.77777777777779, "sum": 7}], "incomeOccupation": [{"Monthly Income": "No Income", "Occupation": "Student", "count": 122, "yes": 105, "rate": 86.0655737704918, "sum": 105}, {"Monthly Income": "No Income", "Occupation": "Housewife", "count": 9, "yes": 7, "rate": 77.77777777777779, "sum": 7}, {"Monthly Income": "Below Rs.10000", "Occupation": "Student", "count": 13, "yes": 13, "rate": 100.0, "sum": 13}, {"Monthly Income": "Below Rs.10000", "Occupation": "Employee", "count": 6, "yes": 2, "rate": 33.33333333333333, "sum": 2}, {"Monthly Income": "10001 to 25000", "Occupation": "Student", "count": 5, "yes": 4, "rate": 80.0, "sum": 4}, {"Monthly Income": "10001 to 25000", "Occupation": "Employee", "count": 21, "yes": 16, "rate": 76.19047619047619, "sum": 16}, {"Monthly Income": "10001 to 25000", "Occupation": "Self Employed", "count": 10, "yes": 7, "rate": 70.0, "sum": 7}, {"Monthly Income": "25001 to 50000", "Occupation": "Student", "count": 3, "yes": 3, "rate": 100.0, "sum": 3}, {"Monthly Income": "25001 to 50000", "Occupation": "Employee", "count": 38, "yes": 24, "rate": 63.1578947368421, "sum": 24}, {"Monthly Income": "25001 to 50000", "Occupation": "Self Employed", "count": 11, "yes": 6, "rate": 54.54545454545454, "sum": 6}, {"Monthly Income": "More than 50000", "Occupation": "Student", "count": 1, "yes": 1, "rate": 100.0, "sum": 1}, {"Monthly Income": "More than 50000", "Occupation": "Employee", "count": 29, "yes": 18, "rate": 62.06896551724138, "sum": 18}, {"Monthly Income": "More than 50000", "Occupation": "Self Employed", "count": 17, "yes": 11, "rate": 64.70588235294117, "sum": 11}]};
+const base={paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'#fff',font:{family:'Inter, system-ui, sans-serif',color:'#172033'},margin:{l:54,r:18,t:16,b:58},yaxis:{range:[0,100],ticksuffix:'%',gridcolor:'#eef0f4',zeroline:false},xaxis:{gridcolor:'rgba(0,0,0,0)'},hoverlabel:{bgcolor:'#172033',font:{color:'#fff'}},showlegend:false};
+const cfg={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
+
+function pct(v){return Number(v).toFixed(1)+'%'}
+function layout(extra={}){return Object.assign(JSON.parse(JSON.stringify(base)),extra)}
+
+Plotly.newPlot('income',[{type:'bar',x:DATA.income.map(d=>d['Monthly Income']),y:DATA.income.map(d=>d.rate),text:DATA.income.map(d=>pct(d.rate)),textposition:'outside',cliponaxis:false,hovertemplate:'<b>%{x}</b><br>Online ordering: %{y:.1f}%<br>Sample size: n=%{customdata}<extra></extra>',customdata:DATA.income.map(d=>d.count),marker:{color:'#6d28d9'}}],layout({yaxis:{...base.yaxis,range:[0,105]},xaxis:{tickangle:-22}}),cfg);
+
+Plotly.newPlot('family',[{type:'bar',x:DATA.family.map(d=>String(d['Family size'])),y:DATA.family.map(d=>d.rate),text:DATA.family.map(d=>pct(d.rate)),textposition:'outside',cliponaxis:false,hovertemplate:'<b>Family size %{x}</b><br>Online ordering: %{y:.1f}%<br>Sample size: n=%{customdata}<extra></extra>',customdata:DATA.family.map(d=>d.count),marker:{color:'#4f46e5'}}],layout({yaxis:{...base.yaxis,range:[0,105]},xaxis:{title:'Family members'}}),cfg);
+
+Plotly.newPlot('occupation',[{type:'bar',x:DATA.occupation.map(d=>d.Occupation),y:DATA.occupation.map(d=>d.rate),text:DATA.occupation.map(d=>pct(d.rate)),textposition:'outside',cliponaxis:false,hovertemplate:'<b>%{x}</b><br>Online ordering: %{y:.1f}%<br>Sample size: n=%{customdata}<extra></extra>',customdata:DATA.occupation.map(d=>d.count),marker:{color:'#7c3aed'}}],layout({yaxis:{...base.yaxis,range:[0,105]}}),cfg);
+
+const occColors=['#6d28d9','#4f46e5','#7c3aed','#a855f7'];
+const grouped=DATA.incomeOccupation;
+const traces2=DATA.occupation.map((o,i)=>{const rows=grouped.filter(d=>d.Occupation===o.Occupation);return {type:'bar',name:o.Occupation,x:DATA.income.map(d=>d['Monthly Income']),y:DATA.income.map(inc=>{const r=rows.find(q=>q['Monthly Income']===inc['Monthly Income']);return r?r.rate:null}),customdata:DATA.income.map(inc=>{const r=rows.find(q=>q['Monthly Income']===inc['Monthly Income']);return r?r.count:0}),hovertemplate:'<b>'+o.Occupation+'</b><br>%{x}<br>Online ordering: %{y:.1f}%<br>Sample size: n=%{customdata}<extra></extra>',marker:{color:occColors[i]}}});
+Plotly.newPlot('incomeOccupation',traces2,layout({barmode:'group',showlegend:true,legend:{orientation:'h',y:1.12,x:0,font:{size:11}},margin:{l:54,r:18,t:50,b:74},yaxis:{...base.yaxis,range:[0,105]},xaxis:{tickangle:-28}}),cfg);
+
+window.addEventListener('resize',()=>{['income','family','occupation','incomeOccupation'].forEach(id=>Plotly.Plots.resize(document.getElementById(id)))});
+</script>
+</body></html>
